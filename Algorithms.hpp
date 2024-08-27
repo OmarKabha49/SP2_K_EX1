@@ -4,19 +4,17 @@
 #ifndef ALGORITHMS_HPP
 #define ALGORITHMS_HPP
 
-
 using namespace std;
-
 
 namespace ariel {
 
     class Algorithms {
     public:
-        static bool isConnected(const Graph &g);
-        static bool isContainsCycle(const Graph &g);
-        static string shortestPath(const Graph &g , size_t start, size_t end);
-        static string isBipartite(const Graph &g);
-        static string negativeCycle(const Graph& g);
+        static bool isConnected(const Graph &g);           // Uses BFS to check if all vertices are reachable (connectivity check)
+        static bool isContainsCycle(const Graph &g);       // Uses DFS with parent tracking to detect cycles
+        static string shortestPath(const Graph &g , size_t start, size_t end);  // Uses a modified Dijkstra's algorithm for unweighted or uniformly weighted graphs
+        static string isBipartite(const Graph &g);         // Uses BFS to check bipartiteness by coloring the graph
+        static string negativeCycle(const Graph& g);       // Uses Bellman-Ford algorithm to detect negative weight cycles
     };
 
 }
