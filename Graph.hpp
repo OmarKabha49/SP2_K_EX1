@@ -35,21 +35,23 @@ namespace ariel {
 
         // Overloaded operators for graph manipulations
 
-        Graph operator++();        // Prefix increment (e.g., ++g)
-        Graph operator++(int);     // Postfix increment (e.g., g++)
-        Graph operator--();        // Prefix decrement (e.g., --g)
-        Graph operator--(int);     // Postfix decrement (e.g., g--)
+        Graph operator++();        // Prefix increment (++g)
+        Graph operator++(int);     // Postfix increment (g++)
+        Graph operator--();        // Prefix decrement (--g)
+        Graph operator--(int);     // Postfix decrement (g--)
+        Graph operator-() const;         // Unary negation operator
 
-        Graph operator +(const Graph & g);      // Addition of two graphs
-        Graph operator +=(const Graph & g);     // Addition assignment (e.g., g1 += g2)
-        Graph operator -(const Graph & g);      // Subtraction of two graphs
-        Graph operator -=(const Graph & g);     // Subtraction assignment (e.g., g1 -= g2)
-        Graph operator *(const Graph & g);      // Multiplication of two graphs
-        Graph operator *=(const Graph & g);     // Multiplication assignment (e.g., g1 *= g2)
-        Graph operator *(int scalar);           // Scalar multiplication
-        Graph operator *=(int scalar);          // Scalar multiplication assignment (e.g., g *= scalar)
-        Graph operator /(int scalar);           // Scalar division
-        Graph operator /=(int scalar);          // Scalar division assignment (e.g., g /= scalar)
+        Graph operator +(const Graph & g) const;      // Addition of two graphs
+        Graph operator +=(const Graph & g);     // Addition assignment (g1 += g2)
+        Graph operator -(const Graph & g) const;      // Subtraction of two graphs
+        Graph operator -=(const Graph & g);     // Subtraction assignment (g1 -= g2)
+        Graph operator *(const Graph & g) const;      // Multiplication of two graphs
+        Graph operator *=(const Graph & g);     // Multiplication assignment (g1 *= g2)
+        Graph operator *(int scalar) const;           // Scalar multiplication
+        Graph operator *=(int scalar);          // Scalar multiplication assignment (g *= scalar)
+        Graph operator /(int scalar) const;           // Scalar division
+        Graph operator /=(int scalar);          // Scalar division assignment (g /= scalar)
+
 
         // Comparison operators for comparing two graphs
 

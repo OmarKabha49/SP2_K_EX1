@@ -1,3 +1,4 @@
+//kabhao47@gmail.com
 #include "Algorithms.hpp"
 #include <queue>
 #include <algorithm>
@@ -8,7 +9,7 @@
 using namespace ariel;
 
 // Helper function for cycle detection using DFS with parent tracking
-bool isCycleHelper(int v, const vector<vector<int>>& adjMatrix, vector<bool>& visited, vector<int>& parent, int& cycle_start, int& cycle_end) {
+bool Algorithms::isCycleHelper(int v, const vector<vector<int>>& adjMatrix, vector<bool>& visited, vector<int>& parent, int& cycle_start, int& cycle_end) {
     visited[v] = true;
 
     for (int neighbor = 0; neighbor < adjMatrix.size(); ++neighbor) {
@@ -215,7 +216,7 @@ string Algorithms::negativeCycle(const Graph &g) {
     const vector<vector<int>>& matrix = g.getAdjMatrix();
 
     // Initialize distances to infinity, except for a starting point (arbitrarily chosen as vertex 0)
-    std::vector<int> dist(numV, numeric_limits<int>::max());
+    vector<int> dist(numV, numeric_limits<int>::max());
     if (numV > 0)
         dist[0] = 0;
 

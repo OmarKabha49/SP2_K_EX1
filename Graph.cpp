@@ -11,10 +11,10 @@ namespace ariel {
                 throw invalid_argument("Invalid graph: The graph is not a square matrix.");
             }
         }
-
+        this->edges = 0;
         vertices = graph.size();  // Set the number of vertices
-        for (size_t i = 0; i < graph.size(); ++i) {
-            for (size_t j = 0; j < graph[0].size(); ++j) {
+        for (size_t i = 0; i < vertices; ++i) {
+            for (size_t j = 0; j < vertices; ++j) {
                 if (graph[i][j] > 0) { this->edges += 1; }  // Count the number of edges
             }
         }
@@ -71,8 +71,19 @@ namespace ariel {
         return --(*this);
     }
 
+
+    Graph Graph::operator-() const{
+        Graph result = *this;
+        for (size_t i = 0; i < vertices; ++i) {
+            for (size_t j = 0; j < vertices; ++j) {
+                result.adjMatrix[i][j] = -adjMatrix[i][j];
+            }
+        }
+        return result;
+    }
+
     // Addition of two graphs: returns a new graph with combined edge weights
-    Graph Graph::operator+(const Graph &g) {
+    Graph Graph::operator+(const Graph &g) const{
         if (vertices != g.vertices) {
             throw invalid_argument("Cannot add graphs of different sizes.");
         }
@@ -91,7 +102,7 @@ namespace ariel {
     }
 
     // Subtraction of two graphs: returns a new graph with subtracted edge weights
-    Graph Graph::operator-(const Graph &g) {
+    Graph Graph::operator-(const Graph &g) const{
         if (vertices != g.vertices) {
             throw invalid_argument("Cannot subtract graphs of different sizes.");
         }
@@ -110,18 +121,22 @@ namespace ariel {
     }
 
     // Multiplication of two graphs: returns a new graph resulting from matrix multiplication
-    Graph Graph::operator*(const Graph &g) {
+    Graph Graph::operator*(const Graph &g) const{
         if (vertices != g.vertices) {
             throw invalid_argument("The number of columns in the first matrix must be equal to the number of rows in the second matrix.");
         }
 
         vector<vector<int>> resultM(vertices, vector<int>(vertices, 0));
-        for (size_t i = 0; i < vertices; i++) {
-            for (size_t j = 0; j < vertices; j++) {
-                for (size_t k = 0; k < vertices; k++)
-                    resultM[i][j] += this->adjMatrix[i][k] + g.adjMatrix[k][j];
+        for (size_t i = 0; i < vertices; ++i) {
+            for (size_t j = 0; j < vertices; ++j) {
+                for (size_t k = 0; k < vertices; ++k)
+                    resultM[i][j] += this->adjMatrix[i][k] * g.adjMatrix[k][j];
             }
         }
+
+        // Set the diagonal elements to 0
+        for (size_t i = 0; i < vertices; ++i) {resultM[i][i] = 0;}
+
         Graph Result;
         Result.loadGraph(resultM);
         return Result;
@@ -133,7 +148,7 @@ namespace ariel {
     }
 
     // Scalar multiplication: returns a new graph with all edge weights multiplied by a scalar
-    Graph Graph::operator*(int scalar) {
+    Graph Graph::operator*(int scalar) const{
         Graph result = *this;
 
         for (size_t i = 0; i < vertices; i++) {
@@ -150,7 +165,7 @@ namespace ariel {
     }
 
     // Scalar division: returns a new graph with all edge weights divided by a scalar
-    Graph Graph::operator/(int scalar) {
+    Graph Graph::operator/(int scalar) const{
         Graph result = *this;
         for (size_t i = 0; i < vertices; i++) {
             for (size_t j = 0; j < vertices; j++) {
